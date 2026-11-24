@@ -1,0 +1,8 @@
+{
+  "gerente.demo@example.com": "SENHA_DO_GERENTE",
+  "senior.demo@example.com": "SENHA_DO_SENIOR",
+  "pleno.demo@example.com": "SENHA_DO_PLENO",
+  "junior.demo@example.com": "SENHA_DO_JUNIOR",
+  "cliente1.demo@example.com": "SENHA_DO_CLIENTE1",
+  "cliente2.demo@example.com": "SENHA_DO_CLIENTE2"
+}

@@ -1,6 +1,6 @@
 # Manual de treinamento — Perrito Barber App 3.0 (item 3.k)
 
-Roteiro de treinamento para cada perfil. Cada sessão deve ser feita com o sistema aberto, praticando os passos. Para treinar sem mexer em dados reais, use as contas de demonstração (senha `Perrito@2026`).
+Roteiro de treinamento para cada perfil. Cada sessão deve ser feita com o sistema aberto, praticando os passos. Para treinar sem mexer em dados reais, use as contas de demonstração. As senhas são entregues à parte pelo responsável do projeto e não ficam no repositório.
 
 | Perfil | Duração sugerida | Conta de treino |
 |---|---|---|
