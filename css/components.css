@@ -1,0 +1,598 @@
+/* =============================================================================
+   Componentes reutilizáveis: botões, formulários, cartões, listas, avisos,
+   modal, estados de carregamento/vazio e grades de horários.
+   ========================================================================== */
+
+/* ------------------------------- Botões ---------------------------------- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  min-height: var(--alvo-toque);
+  padding: var(--esp-2) var(--esp-4);
+  border: 1px solid transparent;
+  border-radius: var(--raio);
+  background: var(--cor-destaque);
+  color: var(--cor-texto-sobre-destaque);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.botao:hover { background: var(--cor-destaque-forte); }
+
+.botao:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.botao--secundario {
+  background: var(--cor-superficie-2);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+.botao--secundario:hover { background: var(--cor-borda); }
+
+.botao--fantasma {
+  background: transparent;
+  border-color: var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+.botao--fantasma:hover { background: var(--cor-superficie-2); }
+
+.botao--perigo {
+  background: transparent;
+  border-color: var(--cor-perigo);
+  color: var(--cor-perigo);
+}
+
+.botao--perigo:hover { background: rgb(255 122 122 / 0.12); }
+
+.botao--pequeno {
+  min-height: 40px;
+  padding: var(--esp-1) var(--esp-3);
+  font-size: var(--texto-p);
+}
+
+.botao--bloco { width: 100%; }
+
+.botao[aria-busy="true"]::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+.grupo-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+}
+
+/* ----------------------------- Formulários ------------------------------- */
+.formulario {
+  display: grid;
+  gap: var(--esp-4);
+}
+
+.campo {
+  display: grid;
+  gap: var(--esp-1);
+}
+
+.campo label,
+.campo legend {
+  font-weight: 600;
+  font-size: var(--texto-p);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  min-height: var(--alvo-toque);
+  padding: var(--esp-2) var(--esp-3);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.campo textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: var(--cor-destaque);
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(214 165 74 / 0.3);
+}
+
+.campo [aria-invalid="true"] {
+  border-color: var(--cor-perigo);
+}
+
+.campo p { margin: 0; }
+
+.campo__ajuda {
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-p);
+}
+
+.campo__erro {
+  color: var(--cor-perigo);
+  font-size: var(--texto-p);
+}
+
+.campo__erro:empty { display: none; }
+
+.linha-campos {
+  display: grid;
+  gap: var(--esp-3);
+}
+
+@media (min-width: 600px) {
+  .linha-campos { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+
+/* ------------------------------- Cartões --------------------------------- */
+.cartao {
+  padding: var(--esp-4);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-g);
+}
+
+.cartao + .cartao { margin-top: var(--esp-3); }
+
+.cartao--acesso {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--esp-5);
+}
+
+.cartao__titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
+  margin-bottom: var(--esp-2);
+}
+
+.marca-acesso {
+  margin-bottom: var(--esp-5);
+  text-align: center;
+}
+
+.marca-acesso h1 { margin-bottom: var(--esp-1); }
+.marca-acesso h1 strong { color: var(--cor-destaque); font-weight: 600; }
+
+.rodape-acesso {
+  margin-top: var(--esp-4);
+  text-align: center;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-p);
+}
+
+/* ------------------------------ Mensagens -------------------------------- */
+.aviso {
+  padding: var(--esp-3) var(--esp-4);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-info);
+  border-radius: var(--raio);
+  background: var(--cor-superficie-2);
+  font-size: var(--texto-p);
+}
+
+.aviso--erro { border-left-color: var(--cor-perigo); }
+.aviso--sucesso { border-left-color: var(--cor-sucesso); }
+.aviso--alerta { border-left-color: var(--cor-alerta); }
+.aviso p:last-child { margin: 0; }
+
+/* Toasts */
+.avisos {
+  position: fixed;
+  right: var(--esp-4);
+  bottom: calc(var(--altura-nav-inferior) + var(--esp-3));
+  left: var(--esp-4);
+  z-index: 50;
+  display: grid;
+  gap: var(--esp-2);
+  pointer-events: none;
+}
+
+.toast {
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-sucesso);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  animation: surgir 0.2s ease-out;
+  pointer-events: auto;
+}
+
+.toast--erro { border-left-color: var(--cor-perigo); }
+
+@media (min-width: 768px) {
+  .avisos {
+    bottom: var(--esp-5);
+    left: auto;
+    width: 380px;
+  }
+}
+
+/* --------------------------- Etiquetas (status) -------------------------- */
+.etiqueta {
+  display: inline-block;
+  padding: 2px var(--esp-2);
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.etiqueta--confirmado { color: var(--cor-info); }
+.etiqueta--concluido { color: var(--cor-sucesso); }
+.etiqueta--cancelado { color: var(--cor-perigo); }
+.etiqueta--neutra { color: var(--cor-texto-suave); }
+
+/* ---------------------- Carregando / lista vazia ------------------------- */
+.carregando {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-3);
+  padding: var(--esp-6) var(--esp-4);
+  color: var(--cor-texto-suave);
+}
+
+.carregando__icone {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--cor-borda);
+  border-top-color: var(--cor-destaque);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+.vazio {
+  padding: var(--esp-6) var(--esp-4);
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio-g);
+  color: var(--cor-texto-suave);
+  text-align: center;
+}
+
+.vazio__titulo {
+  margin-bottom: var(--esp-1);
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+/* --------------------------------- Modal --------------------------------- */
+.modal {
+  width: min(520px, calc(100vw - 2 * var(--esp-4)));
+  max-height: calc(100vh - 2 * var(--esp-4));
+  padding: 0;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-g);
+  color: var(--cor-texto);
+  box-shadow: var(--sombra);
+}
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 0.65);
+}
+
+.modal__corpo {
+  display: grid;
+  gap: var(--esp-3);
+  padding: var(--esp-5);
+}
+
+.modal__corpo h2 { margin: 0; }
+
+.modal__acoes {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+  gap: var(--esp-2);
+}
+
+@media (max-width: 480px) {
+  .modal__acoes .botao { flex: 1 1 100%; }
+}
+
+/* ----------------------------- Abas/segmentos ---------------------------- */
+.segmentos {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.segmentos button {
+  min-height: 40px;
+  padding: var(--esp-1) var(--esp-4);
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.segmentos button[aria-pressed="true"] {
+  background: var(--cor-superficie-2);
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+/* ------------------------- Opções selecionáveis -------------------------- */
+.opcoes {
+  display: grid;
+  gap: var(--esp-2);
+}
+
+@media (min-width: 600px) {
+  .opcoes { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+}
+
+.opcao {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  min-height: 64px;
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+}
+
+.opcao:hover { border-color: var(--cor-texto-suave); }
+
+.opcao input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--cor-destaque);
+  flex-shrink: 0;
+}
+
+.opcao:has(input:checked) {
+  border-color: var(--cor-destaque);
+  background: rgb(214 165 74 / 0.1);
+}
+
+.opcao:has(input:focus-visible) {
+  outline: 3px solid var(--cor-destaque-forte);
+  outline-offset: 2px;
+}
+
+.opcao__texto {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.opcao__titulo { font-weight: 600; }
+
+.opcao__detalhe {
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-p);
+}
+
+/* -------------------------- Grade de horários ---------------------------- */
+.grade-horarios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: var(--esp-2);
+}
+
+.horario {
+  min-height: var(--alvo-toque);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.horario:hover { border-color: var(--cor-destaque); }
+
+.horario[aria-pressed="true"] {
+  background: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  color: var(--cor-texto-sobre-destaque);
+}
+
+/* ------------------------------ Dias (datas) ----------------------------- */
+.faixa-dias {
+  display: grid;
+  grid-auto-columns: 72px;
+  grid-auto-flow: column;
+  gap: var(--esp-2);
+  overflow-x: auto;
+  padding-bottom: var(--esp-2);
+  scroll-snap-type: x proximity;
+}
+
+.dia {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: var(--esp-2) var(--esp-1);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+  scroll-snap-align: start;
+}
+
+.dia__semana {
+  color: var(--cor-texto-suave);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.dia__numero {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.dia__mes { font-size: 0.75rem; }
+
+.dia[aria-pressed="true"] {
+  background: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+  color: var(--cor-texto-sobre-destaque);
+}
+
+.dia[aria-pressed="true"] .dia__semana { color: inherit; }
+
+/* ------------------------------- Passos ---------------------------------- */
+.passos {
+  display: flex;
+  gap: var(--esp-1);
+  margin: 0 0 var(--esp-4);
+  padding: 0;
+  list-style: none;
+  counter-reset: passo;
+}
+
+.passos li {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--cor-borda);
+}
+
+.passos li[data-estado="feito"],
+.passos li[data-estado="atual"] {
+  background: var(--cor-destaque);
+}
+
+.barra-acoes {
+  position: sticky;
+  bottom: calc(var(--altura-nav-inferior) + var(--esp-2));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  margin-top: var(--esp-4);
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-g);
+  box-shadow: var(--sombra);
+}
+
+.barra-acoes__resumo {
+  display: grid;
+  font-size: var(--texto-p);
+}
+
+.barra-acoes__resumo strong {
+  font-size: var(--texto-m);
+}
+
+@media (min-width: 768px) {
+  .barra-acoes { bottom: var(--esp-3); }
+}
+
+/* -------------------------- Itens de agendamento ------------------------- */
+.lista {
+  display: grid;
+  gap: var(--esp-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item-agenda {
+  display: grid;
+  gap: var(--esp-2);
+  padding: var(--esp-4);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-info);
+  border-radius: var(--raio);
+}
+
+.item-agenda--concluido { border-left-color: var(--cor-sucesso); }
+.item-agenda--cancelado { border-left-color: var(--cor-perigo); opacity: 0.8; }
+
+.item-agenda__topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
+}
+
+.item-agenda__hora {
+  font-size: var(--texto-g);
+  font-weight: 700;
+}
+
+.item-agenda__linha {
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-p);
+}
+
+.secao + .secao { margin-top: var(--esp-6); }
+
+/* -------------------------------- Tabelas -------------------------------- */
+.tabela-rolagem {
+  overflow-x: auto;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--texto-p);
+}
+
+.tabela th,
+.tabela td {
+  padding: var(--esp-3);
+  border-bottom: 1px solid var(--cor-borda);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tabela th {
+  background: var(--cor-superficie-2);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tabela tr:last-child td { border-bottom: 0; }
+.tabela .numero { text-align: right; white-space: nowrap; }
+
+/* ------------------------------- Animações ------------------------------- */
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}

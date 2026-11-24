@@ -1,0 +1,175 @@
+/* =============================================================================
+   Layout: topo, navegação e área de conteúdo (mobile first)
+   No celular a navegação fica fixa embaixo (alcance do polegar);
+   a partir de 768px ela sobe para o topo.
+   ========================================================================== */
+
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  padding: var(--esp-3) var(--esp-4);
+  /* Fundo sólido de propósito: backdrop-filter aqui faria o menu inferior
+     (position: fixed, filho deste elemento) se prender ao topo. */
+  background: var(--cor-fundo);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.topo__marca {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-family: var(--fonte-titulo);
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.topo__marca strong {
+  color: var(--cor-destaque);
+  font-weight: 600;
+}
+
+.topo__logo {
+  width: 10px;
+  height: 28px;
+  border-radius: 5px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--cor-destaque) 0 6px,
+    var(--cor-texto) 6px 9px,
+    var(--cor-fundo) 9px 12px
+  );
+}
+
+.topo__usuario {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-width: 0;
+}
+
+.topo__nome {
+  overflow: hidden;
+  max-width: 14ch;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-p);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Navegação inferior (mobile) */
+.navegacao {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  height: var(--altura-nav-inferior);
+  background: var(--cor-superficie);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.navegacao:empty {
+  display: none;
+}
+
+.navegacao__link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  padding: var(--esp-1);
+  color: var(--cor-texto-suave);
+  font-size: 0.75rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.navegacao__icone {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.navegacao__link[aria-current="page"] {
+  color: var(--cor-destaque-forte);
+  font-weight: 600;
+}
+
+.conteudo {
+  width: 100%;
+  max-width: var(--largura-max);
+  margin: 0 auto;
+  padding: var(--esp-4) var(--esp-4) calc(var(--altura-nav-inferior) + var(--esp-5));
+  outline: none;
+}
+
+.conteudo--publico {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding-bottom: var(--esp-5);
+}
+
+.cabecalho-pagina {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  margin-bottom: var(--esp-4);
+}
+
+.cabecalho-pagina h1 {
+  margin: 0;
+}
+
+.cabecalho-pagina p {
+  margin: var(--esp-1) 0 0;
+}
+
+@media (min-width: 768px) {
+  .navegacao {
+    position: static;
+    height: auto;
+    gap: var(--esp-1);
+    background: none;
+    border: 0;
+  }
+
+  .navegacao__link {
+    flex-direction: row;
+    gap: var(--esp-2);
+    padding: var(--esp-2) var(--esp-3);
+    border-radius: var(--raio);
+    font-size: var(--texto-p);
+  }
+
+  .navegacao__link:hover {
+    background: var(--cor-superficie-2);
+    color: var(--cor-texto);
+  }
+
+  .navegacao__link[aria-current="page"] {
+    background: var(--cor-superficie-2);
+  }
+
+  .navegacao__icone {
+    font-size: 1rem;
+  }
+
+  .topo__nome {
+    max-width: 24ch;
+  }
+
+  .conteudo {
+    padding: var(--esp-5) var(--esp-5) var(--esp-6);
+  }
+}
