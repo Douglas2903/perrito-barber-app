@@ -146,7 +146,7 @@ Senha de todas: `Perrito@2026`.
 
 | CT | Caso | Passos | Resultado esperado | Requisito |
 |---|---|---|---|---|
-| CT17 | Somente a própria agenda | Entrar como `senior.demo` no celular (360 px). | Aparecem só os atendimentos do Barbeiro Sênior, com cliente e telefone clicável. Não há rolagem horizontal. | RF08, RNF03 |
+| CT17 | Somente a própria agenda | Entrar como `senior.demo` no celular, a 360 px e depois a 414 px. | Aparecem só os atendimentos do Barbeiro Sênior, com cliente e telefone clicável. Não há rolagem horizontal. | RF08, RNF02, RNF03 |
 | CT18 | Navegação entre dias | Usar ‹ e › e "Hoje". | Domingo e segunda são pulados. A data aparece por extenso (ex.: "Terça-feira, 24/11/2026"). | RF08 |
 | CT19 | Concluir atendimento | Num atendimento confirmado cujo horário já começou, tocar em "Marcar como concluído". | O status muda para "Concluído". O botão não aparece em atendimentos futuros. | RF08, RF10 |
 

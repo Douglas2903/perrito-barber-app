@@ -1,6 +1,6 @@
 # Manual de operação — Perrito Barber App 3.0 (item 3.j)
 
-Rotina para manter o sistema funcionando: backup, o que fazer se o sistema cair, janela de manutenção e abertura de chamados.
+Rotina para manter o sistema funcionando: backup, o que fazer se o sistema cair, janela de manutenção, abertura de chamados e monitoramento de disponibilidade.
 
 ## Componentes
 
@@ -113,7 +113,8 @@ A barbearia fecha às segundas. Toda manutenção planejada é feita **na segund
 - backup;
 - conferir os Advisors;
 - conferir se o projeto Supabase está ativo;
-- revisar os chamados abertos.
+- revisar os chamados abertos;
+- conferir o monitor de uptime (seção 5).
 
 | Data | O que foi feito | Responsável | Backup feito? | Testes OK? |
 |---|---|---|---|---|
@@ -141,3 +142,34 @@ A barbearia fecha às segundas. Toda manutenção planejada é feita **na segund
 | Baixa | Ajuste visual ou melhoria | Planejar em uma janela futura |
 
 O chamado é fechado só depois que quem o abriu confirmar a correção.
+
+---
+
+## 5. Monitoramento de disponibilidade (RNF04)
+
+**Requisito:** o sistema deve ficar no ar no mínimo **99% do tempo por mês**.
+
+**Limitação dos fornecedores:** os planos gratuitos da Vercel e do Supabase **não oferecem garantia formal de disponibilidade (SLA)**. O RNF04 é cumprido pelo **acompanhamento mensal** feito pela barbearia: medir, registrar e agir quando a meta não for atingida.
+
+### 5.1 Configurar o monitor (uma vez)
+
+1. Crie uma conta gratuita num serviço de monitoramento de uptime (por exemplo, UptimeRobot, Better Stack ou similar).
+2. Crie um monitor do tipo **HTTP(s)** para o endereço do sistema na Vercel, com verificação a cada 5 minutos.
+3. Cadastre o e-mail do gerente e o do responsável técnico para receber os alertas de queda.
+4. Se o serviço tiver página de status ou relatório mensal, deixe-os ativados.
+
+O monitor confere se o **site** responde. Uma queda só do Supabase (site abre, mas login e agenda falham) pode não aparecer nele. Por isso **toda queda percebida pelos usuários também vira chamado** (seção 4), com o horário de início e de fim, e entra na conta do mês.
+
+> Projetos gratuitos do Supabase podem ser pausados depois de um período sem uso. Com a barbearia usando o sistema todos os dias, isso não deve ocorrer. Se ocorrer, o tempo até restaurar o projeto (seção 2.1) conta como indisponibilidade.
+
+### 5.2 Fechamento mensal (1ª segunda-feira do mês)
+
+1. Anote a disponibilidade do mês informada pelo monitor.
+2. Some os minutos fora do ar registrados em chamados que o monitor não detectou.
+3. Calcule: **disponibilidade = (minutos do mês − minutos fora do ar) ÷ minutos do mês × 100**.
+4. A meta é **≥ 99%**: no máximo cerca de **7h12min** fora do ar num mês de 30 dias (**7h26min** num mês de 31 dias).
+5. Abaixo da meta: abrir um chamado de prioridade Média com as causas e as ações (ex.: migrar para um plano pago com SLA, mudar a janela de manutenção, revisar o processo de deploy).
+
+| Mês/ano | Disponibilidade do monitor | Minutos fora do ar (chamados) | Disponibilidade final | Meta ≥ 99%? | Responsável |
+|---|---|---|---|---|---|
+| | | | | | |
