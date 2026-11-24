@@ -4,7 +4,7 @@ O sistema tem três tipos de teste:
 
 1. **Testes automatizados das regras no banco** (`tests/sql/regras.sql`): 45 verificações em SQL.
 2. **Testes automatizados pela API** (`tests/regras-api.mjs` e `tests/concorrencia.mjs`): usam o mesmo caminho do navegador (Supabase com o JWT do usuário).
-3. **Roteiro de testes manuais** (seção 3): casos CT01 a CT30 executados na interface.
+3. **Roteiro de testes manuais** (seção 3): casos CT01 a CT31 executados na interface.
 
 Os automatizados usam as **contas de demonstração do seed** (senha `Perrito@2026`).
 
@@ -131,13 +131,13 @@ Senha de todas: `Perrito@2026`.
 
 | CT | Caso | Passos | Resultado esperado | Requisito |
 |---|---|---|---|---|
-| CT07 | Soma de serviços | Como cliente, em "Agendar", marcar "Corte de cabelo" e "Sobrancelha". | O rodapé mostra "2 serviço(s) · 1h" e **R$ 80,00**. | RF04 |
+| CT07 | Soma de serviços | Como cliente, em "Agendar", marcar "Corte de cabelo" e "Sobrancelha". | O rodapé mostra "2 serviço(s) · 1h" e **R$ 80,00**. | RF06 |
 | CT08 | Datas disponíveis | Avançar até "Data". | Só aparecem dias de terça a sábado, até 60 dias à frente. | RF04, RD03 |
-| CT09 | Horários livres | Escolher "Barbeiro Pleno" e a próxima terça com agendamentos de exemplo. | Não aparecem 11:00 (ocupado) nem horários que invadam o almoço (13h–14h). | RF06, RD03 |
+| CT09 | Horários livres | Escolher "Barbeiro Pleno" e a próxima terça com agendamentos de exemplo. | Não aparecem 11:00 (ocupado) nem horários que invadam o almoço (13h–14h). | RF04, RF06, RD03 |
 | CT10 | Qualquer profissional | Escolher "Qualquer profissional" e um horário. | Aparece "você será atendido por [nome]". A confirmação mostra o barbeiro escolhido pelo sistema. | RF05 |
-| CT11 | Confirmação com preço | Concluir o agendamento. | A confirmação mostra data em dd/mm/aaaa, horário, barbeiro e **total em R$**. Depois de confirmar, o horário aparece em "Meus horários → Próximos". | RF04, RD05 |
+| CT11 | Confirmação com preço | Concluir o agendamento. | A confirmação mostra data em dd/mm/aaaa, horário, barbeiro e **total em R$**. Depois de confirmar, o horário aparece em "Meus horários → Próximos". | RF06, RD05 |
 | CT12 | Horário disputado | Em duas janelas (cliente1 e cliente2), escolher o mesmo barbeiro, data e horário e ir até a confirmação nas duas. Confirmar primeiro numa e depois na outra. | A primeira confirma. A segunda mostra "Esse horário acabou de ser ocupado. Escolha outro." e volta para a lista de horários, sem o horário disputado. | RD01, RNF05 |
-| CT13 | Dois barbeiros no mesmo horário | O cliente1 agenda às 17:00 com o Sênior; o cliente2 agenda às 17:00 com o Júnior. | Os dois são aceitos. | RD02 |
+| CT13 | Dois barbeiros no mesmo horário | O cliente1 agenda às 17:00 com o Sênior; o cliente2 agenda às 17:00 com o Júnior. | Os dois são aceitos. Na lista do Júnior, o horário ocupado pelo Sênior continua livre. | RF04, RD02 |
 | CT14 | Cancelar | Em "Meus horários", tocar em "Cancelar" num horário futuro, informar o motivo e confirmar. | O agendamento vai para o "Histórico" como "Cancelado", com o motivo. O horário volta a ficar disponível. | RF09 |
 | CT15 | Excluir conta (LGPD) | Com uma conta de teste: "Meus horários" → "Excluir minha conta" → "Excluir definitivamente". | Volta ao login, e o login com essa conta passa a falhar. Para o gerente, os atendimentos antigos aparecem como "Cliente removido". Os horários futuros da conta foram cancelados. | RD04 |
 | CT16 | Tempo de resposta | Na etapa "Horário", medir o tempo até a lista aparecer. | Menos de 2 segundos. | RNF01 |
@@ -162,9 +162,10 @@ Senha de todas: `Perrito@2026`.
 | CT25 | Escala | Equipe → "Escala" de um barbeiro → mudar o almoço → "Salvar escala". | Escala salva. Os horários livres do cliente refletem o novo almoço. | RF03, RD03 |
 | CT26 | Escala com agendamento | Desmarcar um dia em que o barbeiro tem agendamento futuro e salvar. | Recusado com "Alteração recusada: o agendamento de dd/mm/aaaa às hh:mm ficaria inválido…". | RF03, RD03 |
 | CT27 | Bloqueio (folga) | Equipe → "Novo bloqueio" → barbeiro, datas, "Dia inteiro", motivo → "Criar bloqueio". | O bloqueio aparece na lista. O cliente não vê horários desse barbeiro no período. Bloqueio sobre um agendamento confirmado é recusado. | RF03, RD03 |
-| CT28 | Vincular login | Criar uma conta nova como cliente. Como gerente: Equipe → barbeiro sem login → "Vincular login" → e-mail dessa conta. | Na próxima entrada, a conta vê "Minha agenda" daquele barbeiro. E-mail inexistente mostra "Nenhum usuário cadastrado com este e-mail…". | RF02 |
+| CT28 | Vincular login | Criar uma conta nova como cliente. Como gerente: Equipe → barbeiro sem login → "Vincular login" → e-mail dessa conta. | Na próxima entrada, a conta vê "Minha agenda" daquele barbeiro. E-mail inexistente mostra "Nenhum usuário cadastrado com este e-mail…". | RF01 |
 | CT29 | Reajuste de preço | Serviços → mudar o preço de "Corte de cabelo" → Salvar. Conferir um agendamento antigo e fazer um novo. | O antigo mantém o valor original e o novo usa o preço novo. | RD05 |
 | CT30 | Indicadores | Indicadores → "Este mês", "Mês passado" e "Personalizado". | Tabela por barbeiro com realizados, cancelamentos e faturamento, mais a linha de total. O período aparece em dd/mm/aaaa. Período invertido mostra uma mensagem de erro clara. | RF10 |
+| CT31 | Manter cadastro de profissionais | Equipe → "Novo barbeiro" → nome e nível → Salvar. Depois "Editar" (mudar o nome) e "Desativar". Em seguida, tentar desativar o Barbeiro Sênior, que tem agendamentos futuros. | O novo barbeiro aparece na lista e, depois de editado, com o nome novo. Desativado, ele fica "Inativo" e some da escolha de barbeiro do cliente. A desativação do Sênior é recusada com "Alteração recusada…". | RF02 |
 
 ### Registro de execução
 

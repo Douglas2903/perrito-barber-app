@@ -88,7 +88,7 @@ Pré-requisitos: conta gratuita no [Supabase](https://supabase.com), conta na [V
 
 1. **Authentication → Sign In / Providers → Email**: mantenha **Email** habilitado.
 2. Desligue **Confirm email** e clique em **Save changes** (o cadastro entra direto; o plano gratuito limita o envio de e-mails).
-3. Se disponível no seu plano, ligue **Prevent use of leaked passwords**.
+3. **Limitação conhecida:** a opção **Prevent use of leaked passwords** só existe no plano Pro ou superior do Supabase. No plano gratuito ela fica desligada, e o único alerta restante dos Advisors de segurança é este. Como mitigação, o cadastro exige senha de 8 ou mais caracteres com letras e números.
 
 ### 3. Rodar as migrações e o seed
 

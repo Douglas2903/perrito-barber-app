@@ -40,12 +40,12 @@ Legenda do resultado: **A** = Aprovado · **R** = Aprovado com ressalva · **X**
 
 | Req. | Descrição | Critério de aceite | Como verificar | Resultado | Observação |
 |---|---|---|---|---|---|
-| RF01 | Perfis de acesso (cliente, barbeiro, gerente) | O cliente cria a própria conta e nasce como cliente. Cada papel vê só o seu menu e as suas telas. Acesso por URL a uma tela de outro papel é negado. | CT01–CT06 | | |
-| RF02 | Cadastro de barbeiros e acesso deles | O gerente cadastra, edita e desativa barbeiros e vincula um login pelo e-mail. O barbeiro vinculado passa a ver "Minha agenda". | CT28; Equipe | | |
+| RF01 | Perfis de acesso (cliente, barbeiro, gerente) | O cliente cria a própria conta e nasce como cliente. Cada papel vê só o seu menu e as suas telas. Acesso por URL a uma tela de outro papel é negado. O gerente promove um usuário a barbeiro pelo e-mail (Vincular login), e ele passa a ver só "Minha agenda". | CT01–CT06, CT28 | | |
+| RF02 | **Manter Cadastro de Profissionais:** o gerente pode cadastrar, editar e desativar barbeiros da equipe. | Na tela Equipe, o gerente cadastra um barbeiro (nome e nível), edita os dados e o desativa. O barbeiro desativado deixa de aparecer para agendamento e pode ser reativado. Se houver agendamentos futuros, a desativação é recusada com mensagem clara. | CT31 | | |
 | RF03 | Escala e bloqueios | O gerente edita a escala semanal e cria folgas e compromissos. Os horários livres do cliente refletem as mudanças. Mudança que deixaria cliente sem atendimento é recusada com mensagem clara. | CT25–CT27 | | |
-| RF04 | Agendamento pelo cliente | O cliente escolhe serviços (com soma de duração e valor), barbeiro, data (só dias de funcionamento) e horário, e confirma vendo o preço. | CT07, CT08, CT11 | | |
+| RF04 | **Consultar Disponibilidade por Profissional:** o sistema filtra os horários livres considerando a agenda específica do barbeiro selecionado. | Ao escolher um barbeiro, só aparecem horários livres na agenda dele: dentro da escala, fora do almoço e dos bloqueios dele e sem conflito com os agendamentos dele. Agendamentos de outros barbeiros não reduzem os horários do barbeiro escolhido. | CT08, CT09, CT13; R16–R18 | | |
 | RF05 | "Qualquer profissional" | Com "qualquer profissional", aparecem os horários em que ao menos um barbeiro está livre, e o sistema informa quem vai atender. | CT10 | | |
-| RF06 | Horários disponíveis | Só aparecem horários livres, de 15 em 15 minutos, respeitando escala, almoço, bloqueios, agendamentos e o horário atual. | CT09 | | |
+| RF06 | Horários disponíveis | Só aparecem horários livres, de 15 em 15 minutos, para a duração somada dos serviços escolhidos, respeitando escala, almoço, bloqueios, agendamentos e o horário atual. | CT07, CT09, CT11 | | |
 | RF07 | Agenda geral do gerente | Visão diária com uma coluna por barbeiro e visão semanal. Clicar num agendamento mostra os detalhes. | CT20, CT21 | | |
 | RF08 | Agenda do barbeiro | No celular, o barbeiro vê somente os próprios atendimentos do dia e navega entre os dias. | CT17–CT19 | | |
 | RF09 | Cancelamento e troca de barbeiro | O cliente cancela os próprios horários e o gerente cancela qualquer um. O cancelamento mantém o histórico com o motivo. O gerente troca o barbeiro com validação de escala e conflito. | CT14, CT22–CT24 | | |
@@ -75,7 +75,7 @@ Legenda do resultado: **A** = Aprovado · **R** = Aprovado com ressalva · **X**
 
 | Nº | Item | Descrição | Prazo | Responsável |
 |---|---|---|---|---|
-| 1 | | | | |
+| 1 | Proteção contra senhas vazadas | **Limitação conhecida:** a verificação de senhas vazadas (HaveIBeenPwned) do Supabase Auth só existe no plano Pro ou superior, e o projeto usa o plano gratuito. Mitigação: o cadastro exige senha de 8 ou mais caracteres com letras e números. | Ao migrar para o plano Pro | Gerente |
 | 2 | | | | |
 
 ## 5. Termo de aceite
