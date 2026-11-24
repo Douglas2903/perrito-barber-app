@@ -943,3 +943,24 @@ details summary {
 .linha-inativa td { color: var(--cor-texto-suave); }
 .tabela input[type="text"] { width: 6.5rem; }
 .tabela input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--cor-destaque); }
+
+/* ------------------------------ Indicadores ------------------------------ */
+.filtros { margin-bottom: var(--esp-2); }
+
+.segmentos--rolagem {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.segmentos--rolagem button { white-space: nowrap; }
+
+.campo--botao { align-content: end; }
+
+.tabela tbody th,
+.tabela tfoot th { font-weight: 600; text-align: left; }
+
+.tabela tfoot th,
+.tabela tfoot td {
+  background: var(--cor-superficie-2);
+  border-top: 2px solid var(--cor-borda);
+}
