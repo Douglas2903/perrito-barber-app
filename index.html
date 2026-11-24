@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agendamento online da Perrito Barbearia — Rua Luís Góis, 322, São Paulo (SP).">
+  <meta name="theme-color" content="#121214">
+  <title>Perrito Barbearia</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121214'/%3E%3Cpath d='M9 7h3v18H9zM20 7h3v18h-3z' fill='%23d6a54a'/%3E%3Cpath d='M12 10l8 4-8 4z' fill='%23f2f2f3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo" id="topo" hidden>
+    <div class="topo__marca">
+      <span class="topo__logo" aria-hidden="true"></span>
+      <span>Perrito <strong>Barbearia</strong></span>
+    </div>
+    <nav class="navegacao" id="navegacao" aria-label="Menu principal"></nav>
+    <div class="topo__usuario">
+      <span class="topo__nome" id="nome-usuario"></span>
+      <button type="button" class="botao botao--fantasma botao--pequeno" id="botao-sair">Sair</button>
+    </div>
+  </header>
+
+  <main id="conteudo" class="conteudo" tabindex="-1">
+    <div class="carregando" role="status"><span class="carregando__icone" aria-hidden="true"></span>Carregando…</div>
+  </main>
+
+  <div class="avisos" id="avisos" aria-live="polite" aria-atomic="false"></div>
+
+  <noscript>
+    <p class="noscript">Este sistema precisa de JavaScript ativado no navegador.</p>
+  </noscript>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

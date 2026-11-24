@@ -1,0 +1,13 @@
+# Configuração local com URL e chave do Supabase (ver js/config.example.js)
+js/config.js
+
+# Dependências dos testes automatizados
+node_modules/
+tests/node_modules/
+tests/.vendor/
+
+# Sistema / editores
+.DS_Store
+.vscode/
+.idea/
+.vercel

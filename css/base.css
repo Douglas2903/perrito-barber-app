@@ -1,0 +1,149 @@
+/* =============================================================================
+   Perrito Barber App — Base: tokens de design, reset e tipografia
+   Visual sóbrio de barbearia: tons escuros + destaque dourado.
+   Contraste verificado (WCAG AA): texto #f2f2f3 e #b4b4bd sobre #121214.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Cores */
+  --cor-fundo: #121214;
+  --cor-superficie: #1c1c20;
+  --cor-superficie-2: #26262c;
+  --cor-borda: #3a3a42;
+  --cor-texto: #f2f2f3;
+  --cor-texto-suave: #b4b4bd;
+  --cor-destaque: #d6a54a;
+  --cor-destaque-forte: #e8b95e;
+  --cor-texto-sobre-destaque: #17130b;
+  --cor-sucesso: #4cc38a;
+  --cor-perigo: #ff7a7a;
+  --cor-alerta: #f0b429;
+  --cor-info: #7cb7ff;
+
+  /* Tipografia */
+  --fonte: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fonte-titulo: "Georgia", "Times New Roman", serif;
+  --texto-p: 0.875rem;
+  --texto-m: 1rem;
+  --texto-g: 1.25rem;
+  --texto-gg: 1.75rem;
+
+  /* Espaçamento e forma */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.5rem;
+  --esp-6: 2rem;
+  --raio: 10px;
+  --raio-g: 16px;
+  --sombra: 0 8px 24px rgb(0 0 0 / 0.35);
+
+  /* Área mínima de toque (mobile) */
+  --alvo-toque: 48px;
+
+  --largura-max: 1200px;
+  --altura-nav-inferior: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte);
+  font-size: var(--texto-m);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  margin: 0 0 var(--esp-3);
+  line-height: 1.2;
+}
+
+h1 {
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-gg);
+  font-weight: 600;
+}
+
+h2 { font-size: var(--texto-g); }
+h3 { font-size: var(--texto-m); }
+
+p { margin: 0 0 var(--esp-3); }
+
+a {
+  color: var(--cor-destaque-forte);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-destaque-forte);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.texto-suave { color: var(--cor-texto-suave); }
+.texto-pequeno { font-size: var(--texto-p); }
+.texto-destaque { color: var(--cor-destaque-forte); }
+.texto-perigo { color: var(--cor-perigo); }
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.pular-conteudo {
+  position: absolute;
+  left: var(--esp-2);
+  top: -100px;
+  z-index: 100;
+  padding: var(--esp-2) var(--esp-3);
+  background: var(--cor-destaque);
+  color: var(--cor-texto-sobre-destaque);
+  border-radius: var(--raio);
+}
+
+.pular-conteudo:focus {
+  top: var(--esp-2);
+}
+
+.noscript {
+  padding: var(--esp-5);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
