@@ -688,3 +688,258 @@
   color: var(--cor-texto-suave);
   font-size: var(--texto-p);
 }
+
+/* ===================== Agenda do gerente (visão diária) =================== */
+/* Cores por nível ajudam a identificar o barbeiro nas duas visões. */
+.barbeiro--senior { --cor-barbeiro: #d6a54a; }
+.barbeiro--pleno { --cor-barbeiro: #7cb7ff; }
+.barbeiro--junior { --cor-barbeiro: #4cc38a; }
+
+.agenda-dia__rolagem {
+  overflow-x: auto;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.agenda-dia {
+  display: grid;
+  grid-template-columns: 52px repeat(var(--colunas), minmax(120px, 1fr));
+  min-width: calc(52px + var(--colunas) * 120px);
+  background: var(--cor-superficie);
+}
+
+.agenda-dia__canto,
+.agenda-dia__cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: var(--esp-2);
+  background: var(--cor-superficie-2);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.agenda-dia__cabecalho {
+  display: grid;
+  border-left: 1px solid var(--cor-borda);
+  border-top: 3px solid var(--cor-barbeiro, var(--cor-borda));
+  font-size: var(--texto-p);
+}
+
+.agenda-dia__horas,
+.agenda-dia__coluna {
+  position: relative;
+  /* Linhas de hora em hora (4 linhas de 22px = 88px). */
+  background-image: repeating-linear-gradient(
+    to bottom, var(--cor-borda) 0 1px, transparent 1px 88px);
+}
+
+.agenda-dia__coluna { border-left: 1px solid var(--cor-borda); }
+
+.agenda-dia__hora {
+  position: absolute;
+  left: 6px;
+  color: var(--cor-texto-suave);
+  font-size: 0.75rem;
+  transform: translateY(2px);
+}
+
+.agenda-dia__indisponivel,
+.agenda-dia__bloqueio,
+.agenda-dia__evento {
+  position: absolute;
+  right: 4px;
+  left: 4px;
+  overflow: hidden;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
+.agenda-dia__indisponivel {
+  right: 0;
+  left: 0;
+  padding: 2px 6px;
+  border-radius: 0;
+  background: repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.04) 0 6px, transparent 6px 12px);
+  color: var(--cor-texto-suave);
+}
+
+.agenda-dia__bloqueio {
+  padding: 2px 6px;
+  background: repeating-linear-gradient(-45deg, rgb(255 122 122 / 0.18) 0 6px, rgb(255 122 122 / 0.06) 6px 12px);
+  border: 1px dashed var(--cor-perigo);
+  color: var(--cor-texto);
+}
+
+.agenda-dia__evento {
+  z-index: 1;
+  display: grid;
+  align-content: start;
+  gap: 1px;
+  padding: 3px 6px;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-info);
+  color: var(--cor-texto);
+  text-align: left;
+  cursor: pointer;
+}
+
+.agenda-dia__evento:hover { border-color: var(--cor-destaque); }
+.agenda-dia__evento--concluido { border-left-color: var(--cor-sucesso); opacity: 0.85; }
+
+.agenda-dia__evento strong,
+.agenda-dia__evento span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===================== Agenda do gerente (visão semanal) ================== */
+.agenda-semana {
+  display: grid;
+  gap: var(--esp-3);
+}
+
+@media (min-width: 900px) {
+  .agenda-semana { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+.agenda-semana__dia {
+  padding: var(--esp-3);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.agenda-semana__titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--esp-2);
+  width: 100%;
+  min-height: 40px;
+  margin-bottom: var(--esp-2);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--cor-borda);
+  cursor: pointer;
+  text-align: left;
+}
+
+.agenda-semana__titulo:hover strong { color: var(--cor-destaque-forte); }
+
+.agenda-semana__lista {
+  display: grid;
+  gap: var(--esp-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agenda-semana__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--esp-2);
+  width: 100%;
+  min-height: 40px;
+  padding: var(--esp-1) var(--esp-2);
+  background: var(--cor-superficie-2);
+  border: 0;
+  border-left: 3px solid var(--cor-barbeiro, var(--cor-info));
+  border-radius: 6px;
+  font-size: var(--texto-p);
+  text-align: left;
+  cursor: pointer;
+}
+
+.agenda-semana__item:hover { outline: 1px solid var(--cor-destaque); }
+
+details summary {
+  min-height: var(--alvo-toque);
+  padding: var(--esp-2) 0;
+  cursor: pointer;
+}
+
+/* --------------------------------- Equipe -------------------------------- */
+@media (min-width: 900px) {
+  .lista--grade { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+}
+
+.cartao-barbeiro { border-top: 3px solid var(--cor-barbeiro, var(--cor-borda)); }
+.cartao-barbeiro + .cartao-barbeiro { margin-top: 0; }
+.cartao-barbeiro h3 { margin: 0; }
+
+.escala-resumo {
+  display: grid;
+  gap: 2px;
+  margin: 0 0 var(--esp-3);
+  padding: 0;
+  list-style: none;
+  font-size: var(--texto-p);
+}
+
+.escala-editor {
+  display: grid;
+  gap: var(--esp-2);
+}
+
+.escala-editor__dia {
+  margin: 0;
+  padding: var(--esp-2) var(--esp-3) var(--esp-3);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.escala-editor__dia legend label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: 40px;
+  font-weight: 600;
+}
+
+.escala-editor__dia input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--cor-destaque);
+}
+
+.escala-editor__campos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--esp-2);
+}
+
+.escala-editor__campos label {
+  display: grid;
+  gap: 2px;
+  font-size: 0.75rem;
+  color: var(--cor-texto-suave);
+}
+
+.escala-editor__campos select,
+.tabela input,
+.tabela select {
+  min-height: 40px;
+  padding: 0 var(--esp-2);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  color: var(--cor-texto);
+}
+
+.item-bloqueio--linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-2);
+}
+
+.item-bloqueio--linha strong { color: var(--cor-texto); }
+
+.linha-inativa td { color: var(--cor-texto-suave); }
+.tabela input[type="text"] { width: 6.5rem; }
+.tabela input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--cor-destaque); }

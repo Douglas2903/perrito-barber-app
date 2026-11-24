@@ -100,9 +100,25 @@ function deslocamentoSaoPaulo(dataISO) {
   return deslocamento === '' ? '+00:00' : deslocamento;
 }
 
+/** Data + hora (HH:MM) digitadas em São Paulo -> instante ISO com fuso. */
+export function instanteEmSaoPaulo(dataISO, horaHHMM) {
+  return `${dataISO}T${horaHHMM}:00${deslocamentoSaoPaulo(dataISO)}`;
+}
+
 /** Instante de 00:00 de uma dataISO em São Paulo, para filtros no banco. */
 export function inicioDoDia(dataISO) {
-  return `${dataISO}T00:00:00${deslocamentoSaoPaulo(dataISO)}`;
+  return instanteEmSaoPaulo(dataISO, '00:00');
+}
+
+/** "HH:MM" -> minutos desde 00:00. */
+export function minutosDaHora(horaHHMM) {
+  const [hora, minuto] = horaHHMM.split(':').map(Number);
+  return hora * 60 + minuto;
+}
+
+/** Minutos desde 00:00 -> "HH:MM". */
+export function horaDosMinutos(minutos) {
+  return `${String(Math.floor(minutos / 60)).padStart(2, '0')}:${String(minutos % 60).padStart(2, '0')}`;
 }
 
 /** Lista de dataISO de "inicio" (inclusive) a "fim" (inclusive). */
@@ -128,8 +144,7 @@ export function horaCurta(hora) {
 
 /** Minutos desde 00:00 de um instante, em São Paulo. */
 export function minutosNoDia(instante) {
-  const [hora, minuto] = formatarHora(instante).split(':').map(Number);
-  return hora * 60 + minuto;
+  return minutosDaHora(formatarHora(instante));
 }
 
 /** "1h 15min", "45 min" */

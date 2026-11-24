@@ -220,10 +220,13 @@ const TRADUCOES = [
   [/violates check constraint/i, 'Algum valor informado é inválido. Confira os campos.'],
 ];
 
+/** Erro de validação do próprio front-end: a mensagem é exibida como está. */
+export class ErroDeValidacao extends Error {}
+
 export function mensagemDeErro(erro) {
   if (!erro) return 'Ocorreu um erro inesperado.';
   const mensagem = erro.message ?? String(erro);
-  if (CODIGOS_COM_MENSAGEM_PROPRIA.has(erro.code)) return mensagem;
+  if (erro instanceof ErroDeValidacao || CODIGOS_COM_MENSAGEM_PROPRIA.has(erro.code)) return mensagem;
   const traducao = TRADUCOES.find(([padrao]) => padrao.test(mensagem));
   return traducao ? traducao[1] : 'Não foi possível concluir a operação. Tente novamente.';
 }
