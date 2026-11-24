@@ -51,7 +51,8 @@ cross join (values
 on conflict (barbeiro_id, dia_semana) do nothing;
 
 -- -----------------------------------------------------------------------------
--- 4. Contas de demonstração (Auth). Senha de todas: Perrito@2026
+-- 4. Contas de demonstração (Auth). SENHA INICIAL de todas: Perrito@2026
+--    Troque as senhas logo depois de rodar o seed (README, passo 3).
 --    O trigger ao_criar_usuario_criar_perfil cria o perfil como "cliente".
 -- -----------------------------------------------------------------------------
 do $$

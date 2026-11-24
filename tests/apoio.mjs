@@ -2,7 +2,11 @@
 // Apoio aos testes automatizados (Node 18+).
 // Lê a URL e a chave pública de js/config.js (o mesmo arquivo do front-end)
 // ou das variáveis de ambiente SUPABASE_URL e SUPABASE_ANON_KEY.
-// Usa as contas de demonstração do seed (senha configurável por TESTE_SENHA).
+// Usa as contas de demonstração do seed. As senhas NUNCA ficam no repositório:
+// são lidas de um arquivo JSON local (fora do Git), na ordem:
+//   1. caminho em TESTE_CONTAS;  2. tests/contas.local.json.
+// Formato: veja tests/contas.example.json. Sem arquivo, usa TESTE_SENHA para
+// todas as contas ou, por último, a senha inicial do seed.
 // =============================================================================
 import { createClient } from '@supabase/supabase-js';
 
@@ -25,7 +29,24 @@ export const SERVICOS = {
   barba: '11111111-0000-4000-8000-000000000002',
 };
 
-const SENHA = process.env.TESTE_SENHA ?? 'Perrito@2026';
+const SENHA_INICIAL_DO_SEED = 'Perrito@2026';
+
+async function lerSenhas() {
+  const caminho = process.env.TESTE_CONTAS ?? new URL('./contas.local.json', import.meta.url);
+  try {
+    const { readFile } = await import('node:fs/promises');
+    return JSON.parse(await readFile(caminho, 'utf8'));
+  } catch (erro) {
+    if (erro.code === 'ENOENT') return {};
+    throw new Error(`Não foi possível ler o arquivo de senhas (${caminho}): ${erro.message}`);
+  }
+}
+
+const SENHAS = await lerSenhas();
+
+function senhaDe(email) {
+  return SENHAS[email] ?? process.env.TESTE_SENHA ?? SENHA_INICIAL_DO_SEED;
+}
 
 async function lerConfiguracao() {
   if (process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY) {
@@ -47,7 +68,7 @@ export function criarClienteAnonimo() {
 }
 
 /** Cliente já autenticado com a conta informada. Cada chamada = sessão independente. */
-export async function criarClienteLogado(email, senha = SENHA) {
+export async function criarClienteLogado(email, senha = senhaDe(email)) {
   const cliente = criarClienteAnonimo();
   const { error } = await cliente.auth.signInWithPassword({ email, password: senha });
   if (error) throw new Error(`Falha no login de ${email}: ${error.message}`);

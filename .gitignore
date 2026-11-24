@@ -1,6 +1,9 @@
 # Configuração local com URL e chave do Supabase (ver js/config.example.js)
 js/config.js
 
+# Senhas das contas de demonstração usadas nos testes (modelo: tests/contas.example.json)
+tests/contas.local.json
+
 # Dependências dos testes automatizados
 node_modules/
 tests/node_modules/

@@ -130,7 +130,15 @@ O seed cria: os 5 serviços, os 3 barbeiros, as escalas (almoço escalonado: 12h
 | `senior.demo@example.com`, `pleno.demo@example.com`, `junior.demo@example.com` | barbeiros |
 | `cliente1.demo@example.com`, `cliente2.demo@example.com` | clientes |
 
-Senha de todas: `Perrito@2026`.
+O seed cria as contas com a **senha inicial** `Perrito@2026`. **Troque-as logo depois**, uma por conta, no SQL Editor:
+
+```sql
+update auth.users
+   set encrypted_password = extensions.crypt('NOVA_SENHA_FORTE', extensions.gen_salt('bf'))
+ where email = 'gerente.demo@example.com';
+```
+
+No projeto usado na apresentação, as senhas já foram trocadas. Elas ficam com o responsável pelo projeto e **não estão no repositório**.
 
 > **Produção:** execute só as seções 1 a 3 do `seed.sql` (serviços, barbeiros e escalas). As seções 4 e 5 criam contas e agendamentos de demonstração.
 

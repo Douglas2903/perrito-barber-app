@@ -6,7 +6,7 @@ O sistema tem três tipos de teste:
 2. **Testes automatizados pela API** (`tests/regras-api.mjs` e `tests/concorrencia.mjs`): usam o mesmo caminho do navegador (Supabase com o JWT do usuário).
 3. **Roteiro de testes manuais** (seção 3): casos CT01 a CT31 executados na interface.
 
-Os automatizados usam as **contas de demonstração do seed** (senha `Perrito@2026`).
+Os automatizados usam as **contas de demonstração do seed**. As senhas não ficam no repositório: copie `tests/contas.example.json` para `tests/contas.local.json` (ignorado pelo Git) e preencha uma senha por conta. Outra opção é apontar a variável `TESTE_CONTAS` para um arquivo nesse formato.
 
 ---
 
@@ -114,7 +114,7 @@ O script não grava nada.
 - `cliente1.demo@example.com`
 - `cliente2.demo@example.com`
 
-Senha de todas: `Perrito@2026`.
+As senhas são entregues à parte pelo responsável do projeto.
 
 ### Acesso e perfis
 

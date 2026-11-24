@@ -21,7 +21,7 @@ Este documento orienta como o dono e gerente da Perrito Barbearia, **Caique Fern
 - `cliente1.demo@example.com`
 - `cliente2.demo@example.com`
 
-Senha de todas: `Perrito@2026`. Os casos de teste citados (CT) estão em `docs/testes.md`.
+As senhas são entregues à parte pelo responsável do projeto e não ficam no repositório. Os casos de teste citados (CT) estão em `docs/testes.md`.
 
 ## 2. Dados da sessão
 
