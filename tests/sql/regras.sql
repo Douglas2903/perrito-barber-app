@@ -270,6 +270,20 @@ select pg_temp.tentar('R41', 'Gerente trocar para barbeiro ocupado — recusado'
                (select id from public.agendamentos where barbeiro_id = '22222222-0000-4000-8000-000000000003' and inicio = %L),
                '22222222-0000-4000-8000-000000000001') $f$, pg_temp.em(pg_temp.dia(3), '17:00')), false);
 
+-- Exclusion constraint sozinha (sem a pré-checagem da função): mesmo um
+-- INSERT direto do administrador sobrepondo o mesmo barbeiro é barrado com
+-- SQLSTATE 23P01. É isso que garante o resultado quando duas transações
+-- simultâneas passam juntas pela pré-checagem.
+select pg_temp.como(null);
+select pg_temp.tentar('R44', 'INSERT direto sobreposto no mesmo barbeiro (admin) — recusado pela constraint',
+  format($f$ insert into public.agendamentos (cliente_id, barbeiro_id, inicio, fim, valor_total)
+             values ('33333333-0000-4000-8000-000000000006', '22222222-0000-4000-8000-000000000001', %L, %L, 0) $f$,
+         pg_temp.em(pg_temp.dia(3), '17:15'), pg_temp.em(pg_temp.dia(3), '17:45')), false);
+select pg_temp.tentar('R45', 'INSERT direto no mesmo horário com OUTRO barbeiro — aceito (RD02)',
+  format($f$ insert into public.agendamentos (cliente_id, barbeiro_id, inicio, fim, valor_total)
+             values ('33333333-0000-4000-8000-000000000006', '22222222-0000-4000-8000-000000000002', %L, %L, 0) $f$,
+         pg_temp.em(pg_temp.dia(3), '17:15'), pg_temp.em(pg_temp.dia(3), '17:45')), true);
+
 -- Visitante sem login (anon)
 select pg_temp.como(null);
 set local role anon;

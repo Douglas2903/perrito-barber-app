@@ -1,0 +1,17 @@
+{
+  "name": "perrito-barber-testes",
+  "private": true,
+  "description": "Testes automatizados do Perrito Barber App (concorrência e RLS via API).",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "concorrencia": "node concorrencia.mjs",
+    "regras-api": "node regras-api.mjs",
+    "test": "node regras-api.mjs && node concorrencia.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.119.0"
+  }
+}
