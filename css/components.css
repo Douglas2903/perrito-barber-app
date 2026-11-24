@@ -623,3 +623,68 @@
 
 .resumo dt { color: var(--cor-texto-suave); }
 .resumo dd { margin: 0; font-weight: 600; }
+
+/* --------------------------- Seletor de data ----------------------------- */
+.seletor-data {
+  display: grid;
+  grid-template-columns: var(--alvo-toque) 1fr var(--alvo-toque);
+  align-items: center;
+  gap: var(--esp-2);
+  margin-bottom: var(--esp-4);
+}
+
+.seletor-data > .botao {
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.seletor-data__centro {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-1);
+  text-align: center;
+}
+
+.seletor-data__extras {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--esp-2);
+}
+
+.seletor-data__extras { position: relative; }
+
+/* Campo nativo oculto: só fornece o calendário (aberto pelo botão). */
+.seletor-data__campo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  color-scheme: dark;
+}
+
+.item-agenda a[href^="tel:"] { white-space: nowrap; }
+
+/* Resumo do dia (contadores) */
+.resumo-dia {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2) var(--esp-4);
+  margin-bottom: var(--esp-3);
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-p);
+}
+
+.resumo-dia strong { color: var(--cor-texto); }
+
+.item-bloqueio {
+  padding: var(--esp-3) var(--esp-4);
+  background: repeating-linear-gradient(-45deg, var(--cor-superficie) 0 10px, var(--cor-superficie-2) 10px 20px);
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio);
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-p);
+}

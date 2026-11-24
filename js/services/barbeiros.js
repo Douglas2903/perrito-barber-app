@@ -24,6 +24,12 @@ export async function listarBarbeirosAtivos() {
   return ordenarPorNivel(dados);
 }
 
+/** Registro de barbeiro ligado ao usuário logado (papel barbeiro). */
+export async function buscarBarbeiroDoUsuario(perfilId) {
+  return exigirSucesso(await supabase
+    .from('barbeiros').select('id, nome, nivel, ativo').eq('perfil_id', perfilId).maybeSingle());
+}
+
 /** Gerente: todos os barbeiros, com o usuário vinculado (se houver). */
 export async function listarTodosBarbeiros() {
   const dados = exigirSucesso(await supabase

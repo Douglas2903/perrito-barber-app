@@ -139,3 +139,15 @@ export function formatarDuracao(minutos) {
   if (horas === 0) return `${resto} min`;
   return resto === 0 ? `${horas}h` : `${horas}h ${resto}min`;
 }
+
+/** Próxima data em que a barbearia abre, andando "direcao" (+1 ou -1) dias. */
+export function proximoDiaAberto(dataISO, direcao = 1) {
+  let data = somarDias(dataISO, direcao);
+  while (!abreNoDia(data)) data = somarDias(data, direcao);
+  return data;
+}
+
+/** A própria data, se a barbearia abre nela; senão a próxima data aberta. */
+export function diaAbertoMaisProximo(dataISO) {
+  return abreNoDia(dataISO) ? dataISO : proximoDiaAberto(dataISO, 1);
+}
