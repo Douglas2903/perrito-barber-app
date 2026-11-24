@@ -596,3 +596,30 @@
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
+
+/* ------------------------------ Utilitários ------------------------------ */
+.fieldset-limpo {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.margem-topo { margin-top: var(--esp-4); }
+
+#titulo-passo:focus { outline: none; }
+
+/* Resumo (lista de definição rótulo/valor) */
+.resumo {
+  display: grid;
+  gap: var(--esp-2);
+  margin: 0;
+}
+
+.resumo__linha {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: var(--esp-2);
+}
+
+.resumo dt { color: var(--cor-texto-suave); }
+.resumo dd { margin: 0; font-weight: 600; }
