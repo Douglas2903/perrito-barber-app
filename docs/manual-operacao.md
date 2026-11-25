@@ -79,11 +79,27 @@ O CSV serve para consulta e para recuperar informações pontuais. Para restaura
 | Erro só para um usuário | Sessão expirada ou conta | Pedir para sair e entrar de novo e limpar os dados do site no navegador. Conferir o papel em `perfis`. |
 | Horários não aparecem para ninguém | Escala, bloqueio ou serviço desativado | Gerente: conferir Equipe (escalas e bloqueios) e Serviços (ativos). |
 
-### 2.2 Contingência enquanto o sistema está fora
+### 2.2 Contingência em papel
 
-1. O gerente anota os agendamentos feitos por telefone ou balcão numa folha (data, hora, barbeiro, cliente, telefone e serviços).
-2. Os barbeiros seguem a lista em papel do dia.
-3. Quando o sistema voltar, cada cliente anotado é orientado a confirmar o horário pelo aplicativo. O gerente confere a Agenda geral contra a folha.
+**Prevenção, todo fim de expediente (terça a sábado):**
+
+1. O gerente entra na **Agenda geral**, visão **Dia**, e vai para o **dia seguinte** de funcionamento (botão **›**). No sábado, o próximo é a terça.
+2. Clica em **Imprimir agenda do dia**. Sai uma folha A4 com uma coluna por barbeiro e, em cada atendimento, horário, cliente, telefone e serviços. Se não houver impressora, escolha **Salvar como PDF** e guarde o arquivo no celular.
+3. Deixa a folha no balcão. Se o sistema cair no dia seguinte, a equipe já sabe quem vem e a que horas.
+
+**Durante a queda:**
+
+1. Os barbeiros seguem a **agenda impressa** do dia.
+2. O gerente anota numa folha **cada novo agendamento** feito por telefone ou balcão: data, hora, barbeiro, cliente, telefone e serviços.
+3. Antes de anotar, confere na agenda impressa e na própria folha se o barbeiro está livre naquele horário. Sem o sistema, ninguém mais faz essa checagem.
+
+**Quando o sistema voltar, lançar os agendamentos anotados:**
+
+1. O sistema **não tem** uma função para o gerente agendar em nome do cliente. O lançamento é feito **pelo próprio cliente no app**:
+   - o gerente liga ou manda mensagem para cada cliente da folha e pede que agende pelo site o horário combinado; ou
+   - se o cliente estiver na barbearia, o gerente ajuda a agendar pelo celular do próprio cliente.
+2. Se o horário combinado já tiver sido ocupado por outra pessoa pelo app, o gerente combina com o cliente o próximo horário livre do mesmo barbeiro, ou de outro.
+3. Ao final, o gerente confere a **Agenda geral** contra a folha e risca cada linha lançada. Só descarta a folha quando todas estiverem riscadas.
 4. Registre um chamado (seção 4) com o horário de início e de fim da queda.
 
 ### 2.3 Erro em produção depois de uma atualização
