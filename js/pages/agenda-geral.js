@@ -14,7 +14,7 @@ import {
   criarEtiquetaStatus, duracaoTotal, nomesDosServicos, criarSeletorDeData,
 } from '../utils/apresentacao.js';
 import {
-  dataISODe, diaAbertoMaisProximo, diaDaSemana, formatarData, formatarDataHora, formatarDuracao,
+  dataISODe, diaAbertoMaisProximo, diaDaSemana, formatarData, formatarDataComDiaSemana, formatarDataHora, formatarDuracao,
   formatarHora, hojeISO, horaCurta, horaDosMinutos, inicioDaSemanaDeTrabalho, minutosDaHora, minutosNoDia,
   partesDoDia, somarDias,
 } from '../utils/datas.js';
@@ -167,6 +167,12 @@ function renderizarVisaoDia(dataISO, { barbeiros, escalas, agendamentos, bloquei
   grade.style.setProperty('--colunas', colunas.length);
 
   return h('div', {},
+    h('div', { class: 'grupo-botoes agenda-dia__acoes' },
+      h('button', {
+        type: 'button',
+        class: 'botao botao--secundario',
+        onclick: () => imprimirAgendaDoDia(dataISO, colunas, ativos),
+      }, 'Imprimir agenda do dia')),
     escalasDoDia.length ? null : criarAviso('A barbearia não tem expediente cadastrado neste dia.', 'alerta'),
     h('div', { class: 'agenda-dia__rolagem' }, grade),
     h('p', { class: 'texto-suave texto-pequeno margem-topo' },
@@ -178,6 +184,41 @@ function renderizarVisaoDia(dataISO, { barbeiros, escalas, agendamentos, bloquei
           `${formatarHora(a.inicio)} · ${a.barbeiro?.nome} · ${a.cliente?.nome} · ${nomesDosServicos(a)}`,
           a.motivo_cancelamento ? ` — ${a.motivo_cancelamento}` : ''))))
       : null);
+}
+
+/**
+ * Imprime a agenda do dia numa folha A4 limpa: uma coluna por barbeiro com
+ * horário, cliente, telefone e serviços (contingência em papel — manual de
+ * operação, seção 2.2). Usa os dados já carregados na tela. A folha só aparece
+ * na impressão (css: @media print) e é removida logo depois.
+ */
+function imprimirAgendaDoDia(dataISO, barbeiros, agendamentosAtivos) {
+  document.getElementById('impressao-agenda')?.remove();
+
+  const colunas = barbeiros.map((barbeiro) => {
+    const doBarbeiro = agendamentosAtivos
+      .filter((a) => a.barbeiro_id === barbeiro.id)
+      .sort((a, b) => new Date(a.inicio) - new Date(b.inicio));
+    return h('td', {},
+      h('h2', {}, barbeiro.nome),
+      doBarbeiro.length
+        ? h('ol', {}, doBarbeiro.map((a) => h('li', {},
+          h('strong', {}, `${formatarHora(a.inicio)}–${formatarHora(a.fim)}`),
+          h('span', {}, a.cliente?.nome ?? ''),
+          h('span', {}, a.cliente?.telefone ? formatarTelefone(a.cliente.telefone) : 'sem telefone'),
+          h('span', {}, nomesDosServicos(a)))))
+        : h('p', {}, 'Sem agendamentos'));
+  });
+
+  const folha = h('section', { id: 'impressao-agenda', 'aria-hidden': 'true' },
+    h('header', {},
+      h('h1', {}, `Agenda de ${formatarDataComDiaSemana(dataISO)}`),
+      h('p', {}, `Perrito Barbearia · Rua Luís Góis, 322 · impresso em ${formatarDataHora(new Date())}`)),
+    h('table', {}, h('tbody', {}, h('tr', {}, colunas))));
+
+  document.body.append(folha);
+  window.addEventListener('afterprint', () => folha.remove(), { once: true });
+  window.print();
 }
 
 /** Primeiro e último minuto exibidos: expediente do dia (ou 08–20h) e agendamentos fora dele. */

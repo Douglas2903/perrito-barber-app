@@ -964,3 +964,87 @@ details summary {
   background: var(--cor-superficie-2);
   border-top: 2px solid var(--cor-borda);
 }
+
+/* =========================== Impressão da agenda ========================== */
+/* Folha montada por "Imprimir agenda do dia" (Agenda geral). Na tela fica
+   oculta; na impressão só ela aparece, em A4, fundo branco e sem menus. */
+.agenda-dia__acoes { margin-bottom: var(--esp-3); }
+
+#impressao-agenda { display: none; }
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  body > *:not(#impressao-agenda) { display: none !important; }
+
+  /* O tema escuro (color-scheme: dark) faria o Chrome pintar as margens da folha. */
+  :root { color-scheme: light; }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  #impressao-agenda {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.3;
+    color: #000;
+  }
+
+  #impressao-agenda header {
+    margin-bottom: 4mm;
+    padding-bottom: 2mm;
+    border-bottom: 1.5pt solid #000;
+  }
+
+  #impressao-agenda h1 {
+    margin: 0 0 1mm;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15pt;
+  }
+
+  #impressao-agenda header p { margin: 0; font-size: 8.5pt; }
+
+  #impressao-agenda table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  #impressao-agenda td {
+    padding: 0 2.5mm;
+    vertical-align: top;
+    border-left: 0.75pt solid #999;
+  }
+
+  #impressao-agenda td:first-child { padding-left: 0; border-left: 0; }
+
+  #impressao-agenda h2 {
+    margin: 0 0 2mm;
+    padding-bottom: 1mm;
+    font-size: 11pt;
+    border-bottom: 0.75pt solid #000;
+  }
+
+  #impressao-agenda ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #impressao-agenda li {
+    display: grid;
+    gap: 0.3mm;
+    padding: 1.5mm 0;
+    border-bottom: 0.5pt dashed #aaa;
+    break-inside: avoid;
+  }
+
+  #impressao-agenda li strong { font-size: 10.5pt; }
+}
