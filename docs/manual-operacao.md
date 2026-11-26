@@ -12,7 +12,7 @@ Rotina para manter o sistema funcionando: backup, o que fazer se o sistema cair,
 
 **Responsáveis:**
 - **Gerente (Caique Fernandes Galiardo):** dono do sistema e aprova mudanças.
-- **Responsável técnico:** [preencher nome e contato].
+- **Responsável técnico:** ainda não há uma pessoa designada. Enquanto isso, a função é exercida pela **equipe de desenvolvimento (Grupo 3)**, pelos chamados no GitHub. Onde este manual diz "responsável técnico", leia "equipe de desenvolvimento" até que a barbearia designe alguém, o que é recomendado antes do uso real.
 
 ---
 
@@ -140,7 +140,7 @@ A barbearia fecha às segundas. Toda manutenção planejada é feita **na segund
 
 ## 4. Como abrir um chamado
 
-**Canal:** aba **Issues** do repositório no GitHub → **New issue**. Urgências (sistema fora do ar em dia de atendimento): ligar para o responsável técnico [preencher contato] **e** registrar a issue.
+**Canal:** aba **Issues** do repositório no GitHub → **New issue**. Urgências (sistema fora do ar em dia de atendimento): registrar a issue com prioridade **Alta** e aplicar a contingência em papel (seção 2.2) até o sistema voltar.
 
 **O que informar:**
 1. **Título curto:** ex. "Cliente não consegue cancelar horário".

@@ -76,7 +76,8 @@ Legenda do resultado: **A** = Aprovado · **R** = Aprovado com ressalva · **X**
 | Nº | Item | Descrição | Prazo | Responsável |
 |---|---|---|---|---|
 | 1 | Proteção contra senhas vazadas | **Limitação conhecida:** a verificação de senhas vazadas (HaveIBeenPwned) do Supabase Auth só existe no plano Pro ou superior, e o projeto usa o plano gratuito. Mitigação: o cadastro exige senha de 8 ou mais caracteres com letras e números. | Ao migrar para o plano Pro | Gerente |
-| 2 | | | | |
+| 2 | Responsável técnico | A barbearia não tem responsável técnico designado; o suporte é feito pela equipe de desenvolvimento (Grupo 3) pelos chamados no GitHub | Antes do uso real | Gerente |
+| 3 | | | | |
 
 ## 5. Termo de aceite
 
